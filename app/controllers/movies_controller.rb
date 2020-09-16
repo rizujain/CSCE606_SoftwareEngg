@@ -13,13 +13,17 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     @all_ratings = Movie.get_all_ratings
-    @selected_ratings = params[:ratings].keys if params[:ratings]
-    
-    if !@selected_ratings.nil?
-      @movies = @movies.where(:rating => @selected_ratings)
+ 
+    session[:ratings] = params[:ratings] if params[:ratings]
+    session[:sort_by] = params[:sort_by] if params[:sort_by]
+
+    if !session[:ratings]
+      session[:ratings] = @all_ratings.map { |rating| [rating, true]}.to_h
     end
     
-    @movies = @movies.order(params[:sort_by])
+    @selected_ratings = session[:ratings].keys
+    @movies = @movies.where(:rating => @selected_ratings)
+    @movies = @movies.order(session[:sort_by])
   end
 
   def new
