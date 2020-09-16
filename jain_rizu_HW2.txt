@@ -1,0 +1,4 @@
+
+http://young-reef-79401.herokuapp.com/
+https://github.com/rizujain/rottenpotatoes-rails-intro
+
