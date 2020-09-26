@@ -23,11 +23,20 @@ Background: movies have been added to database
   Then 10 seed movies should exist
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  When I check the following ratings: PG, R
-  And  I uncheck the following ratings: PG-13, G
+  When I check the following ratings: R, PG
+  And I uncheck the following ratings: PG-13, G
   And I press "Refresh"
-  Then I should see "The Incredibles"
-  And I should see "The Terminator "
+  Then I should not see "Aladdin"
+  And I should see "The Terminator"
+  And I should see "When Harry Met Sally"
+  And I should not see "The Help"
+  And I should not see "Chocolat"
+  And I should see "Amelie"
+  And I should not see "2001: A Space Odyssey"
+  And I should see "The Incredibles"
+  And I should see "Raiders of the Lost Ark"
+  And I should not see "Chicken Run"
 
 Scenario: all ratings selected
-  # see assignment
+  When I check the following ratings: PG, PG-13, G, R
+  Then I should see all the movies
