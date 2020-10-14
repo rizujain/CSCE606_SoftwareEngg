@@ -54,6 +54,14 @@ class MoviesController < ApplicationController
     redirect_to movie_path(@movie)
   end
 
+  def director_common
+    @movie, @director_common_movies = Movie.director_common_movies(params[:title])
+    if @director_common_movies.nil?
+      flash[:notice] = "'#{params[:title]}' has no director info"
+      redirect_to root_url
+    end
+  end
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
